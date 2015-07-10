@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>LED Control</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet"/>
+		<style>
+		h1 {
+			text-align: center;
+		}
+
+		
+		.on {
+			background-image: url('media/bulb_on.png');
+			background-size: 300px 400px;
+			background-repeat: no-repeat;
+			cursor: pointer;
+			margin: 0 auto;
+			height: 400px;
+			width: 300px;
+		}
+
+		.off {
+			background-image: url('media/bulb_off.jpg');
+			background-size: 300px 400px;
+			background-repeat: no-repeat;
+			height: 400px;
+			width: 300px;
+		}
+		
+		
+		</style>
+	</head>
+	<body>
+		
+		<h1>LED</h1>
+		<div id="led-container">
+			<div class="led led-image on" id="P13"></div>
+		</div>		
+		
+		<script src="js/jquery-2.0.0.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$(".led").click(function(){
+				var p = $(this).attr('id');
+
+				$.ajax({
+          type: "GET",
+          url: "http://192.168.1.100:80",
+          data: 'P=' + p,
+					async: true,
+					timeout: 1000,
+        });
+
+			});
+
+			$('#led-container').on('click', function() {
+				$('.led-image').toggleClass('off');
+			});
+			
+		});
+		</script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
